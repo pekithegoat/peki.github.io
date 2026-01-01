@@ -2,32 +2,59 @@
 const DISCORD_ID = "592669287743881217"; 
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Selektovanje elemenata
     const startScreen = document.getElementById('start-screen');
     const mainContent = document.getElementById('main-content');
     const audio = document.getElementById('audio-player');
     const volumeSlider = document.getElementById('volume-slider');
-    
+    const zvucnikDugme = document.getElementById('zvucnik'); // Ikonica zvučnika
+
+    // Elementi za Discord
     const avatarImg = document.getElementById('discord-avatar');
     const statusIndicator = document.getElementById('status-indicator');
     const usernameText = document.getElementById('discord-username');
     const statusText = document.getElementById('discord-status-text');
 
+    // Postavi početnu jačinu zvuka na osnovu slajdera
     audio.volume = parseFloat(volumeSlider.value);
 
-    // --- KLIK ZA START ---
+    // --- 1. KLIK NA EKRAN (POČETAK) ---
     startScreen.addEventListener('click', () => {
         startScreen.style.opacity = '0';
         setTimeout(() => { startScreen.style.display = 'none'; }, 800);
         mainContent.style.opacity = '1';
+        
+        // Pusti pesmu
         audio.play().catch(err => console.log(err));
     });
 
-    // --- ZVUK ---
-    volumeSlider.addEventListener('input', () => {
-        audio.volume = parseFloat(volumeSlider.value);
+    // --- 2. LOGIKA ZA GAŠENJE ZVUKA (PRAVI MUTE) ---
+    zvucnikDugme.addEventListener('click', () => {
+        // Proveravamo da li je već mjutovano
+        if (audio.muted) {
+            // UNMUTE (Vrati zvuk)
+            audio.muted = false;
+            zvucnikDugme.style.opacity = "1"; // Ikonica postaje bela
+        } else {
+            // MUTE (Ugasi zvuk, ali NE DIRAJ SLAJDER)
+            audio.muted = true;
+            zvucnikDugme.style.opacity = "0.3"; // Ikonica postaje siva
+        }
     });
 
-    // --- DISCORD STATUS ---
+    // --- 3. LOGIKA ZA SLAJDER ---
+    volumeSlider.addEventListener('input', () => {
+        const val = parseFloat(volumeSlider.value);
+        audio.volume = val;
+        
+        // Ako korisnik pomeri slajder dok je mjutovano, automatski odmutiraj
+        if(audio.muted) {
+            audio.muted = false;
+            zvucnikDugme.style.opacity = "1";
+        }
+    });
+
+    // --- 4. DISCORD STATUS ---
     async function updateDiscordStatus() {
         try {
             const response = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
@@ -37,10 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = json.data;
                 const user = data.discord_user;
 
-                // 1. Ime
                 usernameText.innerText = user.username;
 
-                // 2. Avatar
                 let avatarUrl = "default.jpg";
                 if (user.avatar) {
                     const extension = user.avatar.startsWith("a_") ? "gif" : "png";
@@ -48,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 avatarImg.src = avatarUrl;
 
-                // 3. Status Boje
                 const status = data.discord_status;
                 avatarImg.className = ''; 
                 statusIndicator.className = '';
@@ -71,7 +95,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         statusIndicator.classList.add('offline-bg');
                 }
 
-                // 4. Tekst aktivnosti
                 let activityText = "Chilling";
                 
                 const activity = data.activities.find(a => a.type === 0);
