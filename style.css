@@ -1,0 +1,264 @@
+/* =========================================
+   1. OSNOVNA PODEŠAVANJA (POZADINA I FONT)
+   ========================================= */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    /* Neon Pink i Tamno Plava gradijent (Vibe pesme Kripto) */
+    background: radial-gradient(circle, #240019 0%, #000000 95%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Verdana', sans-serif;
+    overflow: hidden;
+    color: white;
+}
+
+/* =========================================
+   2. EKRAN ZA KLIK (START SCREEN)
+   ========================================= */
+#start-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.98);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    cursor: pointer;
+    transition: opacity 0.8s ease;
+}
+
+#start-text {
+    font-size: 2rem;
+    font-weight: bold;
+    letter-spacing: 8px;
+    color: #ff0055; /* Hot Pink */
+    text-shadow: 0 0 15px #ff0055;
+    animation: blink 1s infinite;
+}
+
+/* =========================================
+   3. GLAVNI SADRŽAJ
+   ========================================= */
+.content {
+    text-align: center;
+    opacity: 0; /* Sakriveno dok se ne klikne */
+    transition: opacity 2s ease;
+    width: 100%;
+    max-width: 500px;
+}
+
+/* =========================================
+   4. DISCORD SLIKA I STATUS
+   ========================================= */
+.disk-container {
+    position: relative;
+    width: 250px; 
+    height: 250px;
+    margin: 0 auto 30px auto;
+}
+
+/* Profilna slika */
+#discord-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid #333; /* Default siva dok ne učita */
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+    transition: all 0.5s ease;
+}
+
+/* Mali kružić za status (dole desno) */
+#status-indicator {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #333;
+    border: 5px solid #000;
+    transition: background-color 0.3s ease;
+}
+
+/* =========================================
+   5. IME I STATUS TEKST
+   ========================================= */
+.discord-info {
+    margin-bottom: 30px;
+}
+
+#discord-username {
+    margin: 0;
+    font-size: 2.2rem;
+    color: #00ffff; /* Neon Cijan */
+    text-transform: uppercase;
+    text-shadow: 0 0 20px #00ffff;
+    letter-spacing: 2px;
+    font-weight: 900;
+}
+
+#discord-status-text {
+    margin: 15px 0 0 0;
+    font-size: 1.1rem;
+    color: #ddd;
+    font-family: 'Courier New', monospace;
+    background: rgba(255, 255, 255, 0.1); /* Staklo efekat */
+    padding: 10px 20px;
+    border-radius: 12px;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* =========================================
+   6. SKILLS (IKONICE PROGRAMSKIH JEZIKA)
+   ========================================= */
+.skills {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+    font-size: 3rem; /* Veličina ikonica */
+}
+
+.skills i {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* --- Definisanje boja za svaku ikonicu --- */
+
+/* C++ (Plava) */
+.devicon-cplusplus-plain { 
+    color: #00599C; 
+    filter: drop-shadow(0 0 8px rgba(0, 89, 156, 0.8)); 
+}
+
+/* Python (Žuta) */
+.devicon-python-plain { 
+    color: #FFD43B; 
+    filter: drop-shadow(0 0 8px rgba(255, 212, 59, 0.8)); 
+}
+
+/* HTML (Narandžasta) */
+.devicon-html5-plain { 
+    color: #E34F26; 
+    filter: drop-shadow(0 0 8px rgba(227, 79, 38, 0.8)); 
+}
+
+/* CSS (Plava) */
+.devicon-css3-plain { 
+    color: #1572B6; 
+    filter: drop-shadow(0 0 8px rgba(21, 114, 182, 0.8)); 
+}
+
+/* JavaScript (Žuta) */
+.devicon-javascript-plain { 
+    color: #F7DF1E; 
+    filter: drop-shadow(0 0 8px rgba(247, 223, 30, 0.8)); 
+}
+
+/* Efekat kad pređeš mišem (Jači sjaj i uvećanje) */
+.skills i:hover { 
+    transform: scale(1.2); 
+    filter: drop-shadow(0 0 20px currentColor);
+}
+
+/* =========================================
+   7. KONTROLA ZVUKA
+   ========================================= */
+.volume-controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* Bela ikonica zvučnika */
+.volume-controls svg {
+    color: #ffffff;
+    filter: drop-shadow(0 0 8px #ffffff);
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.volume-controls svg:hover {
+    transform: scale(1.1);
+}
+
+/* Slajder */
+#volume-slider {
+    -webkit-appearance: none;
+    width: 200px;
+    height: 6px;
+    background: #333;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+/* Dugme na slajderu (Chrome/Safari/Edge) */
+#volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ff0055;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff0055;
+    transition: transform 0.1s;
+}
+
+#volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+}
+
+/* Dugme na slajderu (Firefox) */
+#volume-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #ff0055;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff0055;
+}
+
+/* =========================================
+   8. ANIMACIJE I POMOĆNE KLASE
+   ========================================= */
+@keyframes blink { 
+    0%, 100% { opacity: 1; } 
+    50% { opacity: 0.3; } 
+}
+
+/* Klase koje JavaScript dodaje zavisno od statusa */
+.online-border { border-color: #43b581 !important; box-shadow: 0 0 40px #43b581 !important; }
+.idle-border { border-color: #faa61a !important; box-shadow: 0 0 40px #faa61a !important; }
+.dnd-border { border-color: #f04747 !important; box-shadow: 0 0 40px #f04747 !important; }
+.offline-border { border-color: #747f8d !important; filter: grayscale(100%); }
+
+.online-bg { background-color: #43b581 !important; }
+.idle-bg { background-color: #faa61a !important; }
+.dnd-bg { background-color: #f04747 !important; }
+.offline-bg { background-color: #747f8d !important; }
+
+/* =========================================
+   9. MOBILNI PRIKAZ
+   ========================================= */
+@media (max-width: 600px) {
+    .disk-container { width: 200px; height: 200px; }
+    #discord-username { font-size: 1.8rem; }
+    .skills { font-size: 2.2rem; gap: 15px; }
+    #volume-slider { width: 150px; }
+}
