@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const usernameText = document.getElementById('discord-username');
     const statusText = document.getElementById('discord-status-text');
 
-    // Postavi početnu jačinu zvuka na osnovu slajdera
+    // Postavi početnu jačinu
     audio.volume = parseFloat(volumeSlider.value);
 
     // --- 1. KLIK NA EKRAN (POČETAK) ---
@@ -30,15 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 2. LOGIKA ZA GAŠENJE ZVUKA (PRAVI MUTE) ---
     zvucnikDugme.addEventListener('click', () => {
-        // Proveravamo da li je već mjutovano
         if (audio.muted) {
-            // UNMUTE (Vrati zvuk)
+            // UNMUTE (Upali zvuk)
             audio.muted = false;
-            zvucnikDugme.style.opacity = "1"; // Ikonica postaje bela
+            zvucnikDugme.style.opacity = "1"; // Bela boja
         } else {
-            // MUTE (Ugasi zvuk, ali NE DIRAJ SLAJDER)
+            // MUTE (Ugasi zvuk, ali linija stoji)
             audio.muted = true;
-            zvucnikDugme.style.opacity = "0.3"; // Ikonica postaje siva
+            zvucnikDugme.style.opacity = "0.3"; // Siva boja
         }
     });
 
@@ -47,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const val = parseFloat(volumeSlider.value);
         audio.volume = val;
         
-        // Ako korisnik pomeri slajder dok je mjutovano, automatski odmutiraj
+        // Ako pomerimo slajder dok je mjutovano, automatski odmutiraj
         if(audio.muted) {
             audio.muted = false;
             zvucnikDugme.style.opacity = "1";

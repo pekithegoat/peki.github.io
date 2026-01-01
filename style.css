@@ -70,9 +70,9 @@ body {
    ========================================= */
 .disk-container {
     position: relative;
-    width: 220px;
-    height: 220px;
-    margin: 0 auto 20px auto;
+    width: 200px; /* Malo manje za bolji fit */
+    height: 200px;
+    margin: 0 auto 15px auto;
 }
 
 #discord-avatar {
@@ -89,15 +89,15 @@ body {
     position: absolute;
     bottom: 15px;
     right: 15px;
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     background-color: #333;
     border: 4px solid #000;
 }
 
 /* =========================================
-   5. IME I STATUS
+   5. IME, GLITCH I STATUS
    ========================================= */
 .discord-info {
     margin-bottom: 25px;
@@ -113,9 +113,75 @@ body {
     font-weight: 900;
 }
 
+/* --- GLITCH EFEKAT "DEVELOPER" --- */
+.role-wrapper {
+    margin: 5px 0 15px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.glitch {
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    letter-spacing: 5px;
+    font-family: 'Courier New', Courier, monospace;
+    text-transform: uppercase;
+    animation: glitch-skew 1s infinite linear alternate-reverse;
+}
+
+.glitch::before {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    text-shadow: -2px 0 #ff0055;
+    overflow: hidden;
+    top: 0;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    text-shadow: -2px 0 #00ffff;
+    overflow: hidden;
+    top: 0;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+    0% { clip-path: inset(20% 0 80% 0); }
+    20% { clip-path: inset(60% 0 1% 0); }
+    40% { clip-path: inset(40% 0 50% 0); }
+    60% { clip-path: inset(80% 0 5% 0); }
+    80% { clip-path: inset(10% 0 70% 0); }
+    100% { clip-path: inset(30% 0 20% 0); }
+}
+
+@keyframes glitch-anim-2 {
+    0% { clip-path: inset(10% 0 60% 0); }
+    20% { clip-path: inset(30% 0 10% 0); }
+    40% { clip-path: inset(70% 0 20% 0); }
+    60% { clip-path: inset(20% 0 50% 0); }
+    80% { clip-path: inset(50% 0 30% 0); }
+    100% { clip-path: inset(5% 0 80% 0); }
+}
+
+@keyframes glitch-skew {
+    0% { transform: skew(0deg); }
+    20% { transform: skew(-2deg); }
+    40% { transform: skew(2deg); }
+    60% { transform: skew(0deg); }
+    80% { transform: skew(1deg); }
+    100% { transform: skew(0deg); }
+}
+
+/* Status tekst */
 #discord-status-text {
-    margin: 10px 0 0 0;
-    font-size: 1rem;
+    margin: 5px 0 0 0;
+    font-size: 0.9rem;
     color: #ddd;
     font-family: 'Courier New', monospace;
     background: rgba(255, 255, 255, 0.1);
@@ -215,11 +281,12 @@ body {
 .offline-bg { background-color: #747f8d !important; }
 
 /* =========================================
-   9. MOBILNI PRIKAZ (Male korekcije)
+   9. MOBILNI PRIKAZ (FINAL TWEAKS)
    ========================================= */
 @media (max-width: 400px) {
-    .disk-container { width: 180px; height: 180px; margin-bottom: 20px; }
+    .disk-container { width: 160px; height: 160px; margin-bottom: 10px; }
     #discord-username { font-size: 1.6rem; }
+    .glitch { font-size: 1.2rem; }
     .skills { font-size: 2.2rem; gap: 15px; }
     #start-text { font-size: 1.5rem; }
 }
