@@ -2,18 +2,49 @@
 const DISCORD_ID = "592669287743881217"; 
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Selektovanje elemenata
     const startScreen = document.getElementById('start-screen');
     const mainContent = document.getElementById('main-content');
     const audio = document.getElementById('audio-player');
     const volumeSlider = document.getElementById('volume-slider');
-    const zvucnikDugme = document.getElementById('zvucnik'); // Ikonica zvučnika
+    const zvucnikDugme = document.getElementById('zvucnik');
 
-    // Elementi za Discord
     const avatarImg = document.getElementById('discord-avatar');
     const statusIndicator = document.getElementById('status-indicator');
     const usernameText = document.getElementById('discord-username');
     const statusText = document.getElementById('discord-status-text');
+
+    // --- NOVO: FUNKCIJA ZA SNEG ---
+    function createSnow() {
+        const snowContainer = document.getElementById('snow-container');
+        const numberOfSnowflakes = 50; // Broj pahuljica (50 je optimalno za mobilni)
+
+        for (let i = 0; i < numberOfSnowflakes; i++) {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            
+            // Random pozicija (levo-desno)
+            snowflake.style.left = Math.random() * 100 + 'vw';
+            
+            // Random veličina (od 2px do 5px)
+            const size = Math.random() * 3 + 2 + 'px';
+            snowflake.style.width = size;
+            snowflake.style.height = size;
+            
+            // Random brzina padanja (između 5s i 15s)
+            snowflake.style.animationDuration = Math.random() * 10 + 5 + 's';
+            
+            // Random kašnjenje (da ne krenu sve odjednom)
+            snowflake.style.animationDelay = Math.random() * 5 + 's';
+            
+            // Random providnost
+            snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+
+            snowContainer.appendChild(snowflake);
+        }
+    }
+
+    // Pokreni sneg odmah
+    createSnow();
 
     // Postavi početnu jačinu
     audio.volume = parseFloat(volumeSlider.value);
@@ -23,30 +54,24 @@ document.addEventListener('DOMContentLoaded', () => {
         startScreen.style.opacity = '0';
         setTimeout(() => { startScreen.style.display = 'none'; }, 800);
         mainContent.style.opacity = '1';
-        
-        // Pusti pesmu
         audio.play().catch(err => console.log(err));
     });
 
-    // --- 2. LOGIKA ZA GAŠENJE ZVUKA (PRAVI MUTE) ---
+    // --- 2. LOGIKA ZA GAŠENJE ZVUKA (MUTE) ---
     zvucnikDugme.addEventListener('click', () => {
         if (audio.muted) {
-            // UNMUTE (Upali zvuk)
             audio.muted = false;
-            zvucnikDugme.style.opacity = "1"; // Bela boja
+            zvucnikDugme.style.opacity = "1";
         } else {
-            // MUTE (Ugasi zvuk, ali linija stoji)
             audio.muted = true;
-            zvucnikDugme.style.opacity = "0.3"; // Siva boja
+            zvucnikDugme.style.opacity = "0.3";
         }
     });
 
-    // --- 3. LOGIKA ZA SLAJDER ---
+    // --- 3. SLAJDER LOGIKA ---
     volumeSlider.addEventListener('input', () => {
         const val = parseFloat(volumeSlider.value);
         audio.volume = val;
-        
-        // Ako pomerimo slajder dok je mjutovano, automatski odmutiraj
         if(audio.muted) {
             audio.muted = false;
             zvucnikDugme.style.opacity = "1";

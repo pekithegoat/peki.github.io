@@ -13,7 +13,6 @@ body {
     background-color: #000;
     /* Neon Pink i Tamno Plava gradijent */
     background: radial-gradient(circle, #240019 0%, #000000 95%);
-    /* 100dvh rešava problem sa adres barom na telefonima */
     height: 100dvh; 
     display: flex;
     flex-direction: column;
@@ -21,6 +20,34 @@ body {
     justify-content: center;
     font-family: 'Verdana', sans-serif;
     color: white;
+}
+
+/* =========================================
+   NOVO: SNEG EFEKAT (PAHULJICE)
+   ========================================= */
+#snow-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Da možeš da klikneš kroz sneg */
+    z-index: 1; /* Iza teksta, ali ispred pozadine */
+    overflow: hidden;
+}
+
+.snowflake {
+    position: absolute;
+    top: -10px;
+    background-color: white;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-10px); }
+    100% { transform: translateY(110vh); }
 }
 
 /* =========================================
@@ -63,6 +90,8 @@ body {
     max-width: 500px;
     padding: 20px;
     box-sizing: border-box;
+    position: relative;
+    z-index: 10; /* Da bude ispred snega */
 }
 
 /* =========================================
@@ -70,7 +99,7 @@ body {
    ========================================= */
 .disk-container {
     position: relative;
-    width: 200px; /* Malo manje za bolji fit */
+    width: 200px; 
     height: 200px;
     margin: 0 auto 15px auto;
 }
@@ -178,7 +207,6 @@ body {
     100% { transform: skew(0deg); }
 }
 
-/* Status tekst */
 #discord-status-text {
     margin: 5px 0 0 0;
     font-size: 0.9rem;
@@ -209,14 +237,12 @@ body {
     cursor: pointer;
 }
 
-/* Boje (uvek aktivne) */
 .devicon-cplusplus-plain { color: #00599C; filter: drop-shadow(0 0 5px rgba(0, 89, 156, 0.6)); }
 .devicon-python-plain { color: #FFD43B; filter: drop-shadow(0 0 5px rgba(255, 212, 59, 0.6)); }
 .devicon-html5-plain { color: #E34F26; filter: drop-shadow(0 0 5px rgba(227, 79, 38, 0.6)); }
 .devicon-css3-plain { color: #1572B6; filter: drop-shadow(0 0 5px rgba(21, 114, 182, 0.6)); }
 .devicon-javascript-plain { color: #F7DF1E; filter: drop-shadow(0 0 5px rgba(247, 223, 30, 0.6)); }
 
-/* Hover efekat */
 .skills i:hover { transform: scale(1.2); filter: drop-shadow(0 0 15px currentColor); }
 
 /* =========================================
@@ -281,7 +307,7 @@ body {
 .offline-bg { background-color: #747f8d !important; }
 
 /* =========================================
-   9. MOBILNI PRIKAZ (FINAL TWEAKS)
+   9. MOBILNI PRIKAZ
    ========================================= */
 @media (max-width: 400px) {
     .disk-container { width: 160px; height: 160px; margin-bottom: 10px; }
